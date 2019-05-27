@@ -1,0 +1,246 @@
+[ActivityManager][Global Shortcuts]
+switch-to-activity-b51e0df8-a671-4952-9efc-fb581ceff712=none
+
+[KDE Keyboard Layout Switcher][Global Shortcuts]
+Switch keyboard layout to English (UK)=none
+Switch keyboard layout to English (US)=none
+Switch keyboard layout to Swedish=none
+Switch to Next Keyboard Layout=none
+
+[kaccess][Global Shortcuts]
+Toggle Screen Reader On and Off=Meta+Alt+S
+
+[kcm_touchpad][Global Shortcuts]
+Decrease Keyboard Brightness=none
+Decrease Screen Brightness=none
+Disable Touchpad=Touchpad Off
+Enable Touchpad=Touchpad On
+Hibernate=none
+Increase Keyboard Brightness=none
+Increase Screen Brightness=none
+PowerOff=none
+Show System Activity=Ctrl+Esc
+Sleep=none
+Toggle Keyboard Backlight=none
+Toggle Touchpad=Touchpad Toggle
+display=Display;\s
+{9e2f9acc-2654-4679-ba5f-b0263c5e4566}=Ctrl+Alt+T
+{d03619b6-9b3c-48cc-9d9c-a2aadb485550}=none
+
+[kmix][Global Shortcuts]
+decrease_microphone_volume=Microphone Volume Down
+decrease_volume=Volume Down
+increase_microphone_volume=Microphone Volume Up
+increase_volume=Volume Up
+mic_mute=Microphone Mute
+mute=Volume Mute
+
+[krunner][Global Shortcuts]
+run command=Meta+S
+run command on clipboard contents=Alt+Shift+F2
+
+[ksmserver][Global Shortcuts]
+Halt Without Confirmation=none
+Lock Session=Ctrl+Alt+L; Screensaver
+Log Out=none
+Log Out Without Confirmation=none
+Reboot Without Confirmation=none
+
+[kwin][Global Shortcuts]
+Activate Window Demanding Attention=none
+Decrease Opacity=none
+Expose=none
+ExposeAll=; Launch (C)
+ExposeClass=none
+Increase Opacity=none
+Invert Screen Colors=none
+Kill Window=none
+MoveMouseToCenter=none
+MoveMouseToFocus=none
+MoveZoomDown=none
+MoveZoomLeft=none
+MoveZoomRight=none
+MoveZoomUp=none
+Remove Window From Group=none
+Setup Window Shortcut=none
+Show Desktop=none
+ShowDesktopGrid=none
+Suspend Compositing=none
+Switch One Desktop Down=none
+Switch One Desktop Up=none
+Switch One Desktop to the Left=none
+Switch One Desktop to the Right=none
+Switch Window Down=none
+Switch Window Left=none
+Switch Window Right=none
+Switch Window Up=none
+Switch to Desktop 1=none
+Switch to Desktop 10=none
+Switch to Desktop 11=none
+Switch to Desktop 12=none
+Switch to Desktop 13=none
+Switch to Desktop 14=none
+Switch to Desktop 15=none
+Switch to Desktop 16=none
+Switch to Desktop 17=none
+Switch to Desktop 18=none
+Switch to Desktop 19=none
+Switch to Desktop 2=none
+Switch to Desktop 20=none
+Switch to Desktop 3=none
+Switch to Desktop 4=none
+Switch to Desktop 5=none
+Switch to Desktop 6=none
+Switch to Desktop 7=none
+Switch to Desktop 8=none
+Switch to Desktop 9=none
+Switch to Next Desktop=none
+Switch to Next Screen=none
+Switch to Previous Desktop=none
+Switch to Previous Screen=none
+Switch to Screen 0=none
+Switch to Screen 1=none
+Switch to Screen 2=none
+Switch to Screen 3=none
+Switch to Screen 4=none
+Switch to Screen 5=none
+Switch to Screen 6=none
+Switch to Screen 7=none
+Toggle Window Raise/Lower=none
+Walk Through Desktop List=none
+Walk Through Desktop List (Reverse)=none
+Walk Through Desktops=none
+Walk Through Desktops (Reverse)=none
+Walk Through Window Tabs=none
+Walk Through Window Tabs (Reverse)=none
+Walk Through Windows=none
+Walk Through Windows (Reverse)=none
+Walk Through Windows Alternative=Meta+Tab
+Walk Through Windows Alternative (Reverse)=Meta+Shift+Tab
+Walk Through Windows of Current Application=none
+Walk Through Windows of Current Application (Reverse)=none
+Walk Through Windows of Current Application Alternative=none
+Walk Through Windows of Current Application Alternative (Reverse)=none
+Window Above Other Windows=none
+Window Below Other Windows=none
+Window Close=Meta+Q
+Window Fullscreen=none
+Window Grow Horizontal=none
+Window Grow Vertical=none
+Window Lower=none
+Window Maximize=Meta+Up
+Window Maximize Horizontal=none
+Window Maximize Vertical=none
+Window Minimize=none
+Window Move=none
+Window No Border=none
+Window On All Desktops=none
+Window One Desktop Down=none
+Window One Desktop Up=none
+Window One Desktop to the Left=none
+Window One Desktop to the Right=none
+Window Operations Menu=none
+Window Pack Down=none
+Window Pack Left=none
+Window Pack Right=none
+Window Pack Up=none
+Window Quick Tile Bottom=none
+Window Quick Tile Bottom Left=none
+Window Quick Tile Bottom Right=none
+Window Quick Tile Left=Meta+Left
+Window Quick Tile Right=Meta+Right
+Window Quick Tile Top=none
+Window Quick Tile Top Left=none
+Window Quick Tile Top Right=none
+Window Raise=none
+Window Resize=none
+Window Shade=none
+Window Shrink Horizontal=none
+Window Shrink Vertical=none
+Window to Desktop 1=none
+Window to Desktop 10=none
+Window to Desktop 11=none
+Window to Desktop 12=none
+Window to Desktop 13=none
+Window to Desktop 14=none
+Window to Desktop 15=none
+Window to Desktop 16=none
+Window to Desktop 17=none
+Window to Desktop 18=none
+Window to Desktop 19=none
+Window to Desktop 2=none
+Window to Desktop 20=none
+Window to Desktop 3=none
+Window to Desktop 4=none
+Window to Desktop 5=none
+Window to Desktop 6=none
+Window to Desktop 7=none
+Window to Desktop 8=none
+Window to Desktop 9=none
+Window to Next Desktop=none
+Window to Next Screen=none
+Window to Previous Desktop=none
+Window to Previous Screen=Meta+Shift+J
+Window to Screen 0=none
+Window to Screen 1=none
+Window to Screen 2=none
+Window to Screen 3=none
+Window to Screen 4=none
+Window to Screen 5=none
+Window to Screen 6=none
+Window to Screen 7=none
+view_actual_size=none
+view_zoom_in=none
+view_zoom_out=none
+
+[mediacontrol][Global Shortcuts]
+mediavolumedown=none
+mediavolumeup=none
+nextmedia=Media Next
+playpausemedia=Media Play
+previousmedia=Media Previous
+stopmedia=Media Stop
+
+[org.kde.konsole.desktop][Global Shortcuts]
+NewTab=none
+NewWindow=none
+_launch=Meta+Shift+Return
+
+[org_kde_powerdevil][Global Shortcuts]
+Decrease Keyboard Brightness=Keyboard Brightness Down
+Decrease Screen Brightness=Monitor Brightness Down
+Hibernate=Hibernate
+Increase Keyboard Brightness=Keyboard Brightness Up
+Increase Screen Brightness=Monitor Brightness Up
+PowerOff=Power Off
+Sleep=Sleep
+Toggle Keyboard Backlight=Keyboard Light On/Off
+
+[plasmashell][Global Shortcuts]
+activate task manager entry 1=Meta+1
+activate task manager entry 10=Meta+0
+activate task manager entry 2=Meta+2
+activate task manager entry 3=Meta+3
+activate task manager entry 4=Meta+4
+activate task manager entry 5=Meta+5
+activate task manager entry 6=Meta+6
+activate task manager entry 7=Meta+7
+activate task manager entry 8=Meta+8
+activate task manager entry 9=Meta+9
+activate widget 3=Alt+F1
+clear-history=none
+clipboard_action=Ctrl+Alt+X
+cycleNextAction=none
+cyclePrevAction=none
+edit_clipboard=none
+manage activities=none
+next activity=none
+previous activity=none
+repeat_action=Ctrl+Alt+R
+show dashboard=Ctrl+F12
+show-barcode=none
+show-on-mouse-pos=none
+stop current activity=none
+
+[yakuake][Global Shortcuts]
+toggle-window-state=Meta+Return
