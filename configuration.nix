@@ -52,7 +52,7 @@
     alacritty
 
     vlc
-    yarn
+    nodejs-12_x
     rustup
 
     emacs
