@@ -13,14 +13,18 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.useOSProber = true;
+  # Use the latest kernel for magic touchpad 2 driver support (required 4.20+)
+  # TODO: When 4.20+ becomes mainline, use that
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "nmio-workstation";
   networking.networkmanager.enable = true;
 
   hardware.pulseaudio.enable = true;
   hardware.opengl.driSupport32Bit = true;
   hardware.pulseaudio.support32Bit = true;
-  hardware.bluetooth.enable = true;
+  hardware.bluetooth.enable = false;
 
   # Select internationalisation properties.
   i18n = {
@@ -33,31 +37,35 @@
   time.timeZone = "Europe/Tallinn";
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true; # TODO: Remove when evdi for displaylink fixed!
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [    
+  environment.systemPackages = with pkgs; [
     firefox
     chromium
 
+    go
     gcc
     git
     htop
     bash
-    tmux
     docker
-    openssl
+    lazydocker
     gnumake
     binutils
-    alacritty
+    ktorrent
+    displaylink
 
     vlc
     nodejs-12_x
     rustup
+    cargo
 
     emacs
     jetbrains.jdk
-    jetbrains.idea-community
+    jetbrains.goland
+    jetbrains.clion
   ];
 
   virtualisation.docker.enable = true;
@@ -77,10 +85,7 @@
   networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
   networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
+  networking.firewall.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -96,24 +101,36 @@
   services.xserver.displayManager.lightdm.enable = false;
   services.xserver.desktopManager.pantheon.enable = false;
 
+  # GPUs
+  services.xserver.videoDrivers = [
+        "nvidia"
+        "displaylink"
+        "modesetting"
+  ];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # users.extraUsers.guest = {
   #   isNormalUser = true;
   #   uid = 1000;
   # };
+  # NOTE: dockerdev group is a dummy group for working with docker volumes
+  #       Both docker and host user (nmio) will have a group with guid "1024" and thus can share the data there
+  users.groups.dockerdev =
+  { name = "dockerdev";
+    gid = 1024;
+  };
   users.users.nmio =
   { isNormalUser = true;
     home = "/home/nmio";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "dockerdev" ];
   };
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
   # servers. You should change this only after NixOS release notes say you
   # should.
-  
-  # sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
-  # sudo nixos-rebuild switch --upgrade
-  system.stateVersion = "19.03"; # Did you read the comment?
-
+  # These are the commands to change channel:
+  # - sudo nix-channel --add https://nixos.org/channels/nixos-unstable nixos
+  # - sudo nixos-rebuild switch --upgrade
+  system.stateVersion = "19.09"; # Did you read the comment?
 }
