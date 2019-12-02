@@ -62,7 +62,7 @@
     rustup
     cargo
 
-    emacs
+    emacs-nox
     jetbrains.jdk
     jetbrains.goland
     jetbrains.clion
