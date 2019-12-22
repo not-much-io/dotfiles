@@ -21,28 +21,59 @@
       linux_sgx_pkg = { fetchurl, buildLinux, ... } @ args:
 
         buildLinux (args // rec {
-          version = "5.2.0";
+          version = "5.4.6";
           modDirVersion = version;
 
           src = fetchurl {
-            url = "https://github.com/torvalds/linux/archive/v5.2.tar.gz";
-            sha256 = "16a2a056c16b91c3e4eaf40d2a5a096cfb604f40e2bf925f607cfa095f9e05b4";
+            url = "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.6.tar.xz";
+            sha256 = "fda561bcdea397ddd59656319c53871002938b19b554f30efed90affa30989c8";
           };
-          kernelPatches = [];
+          kernelPatches = [
+            { name = "0001";
+              patch = fetchurl {
+                url = "https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4/0001-base-packaging.patch";
+                sha256 = "12dbk6fsdjx0a7rp7yh6m5ah1pvsnf8n58fi0y2xxq2agg1a8k52";
+              };
+            }
+            { name = "0002";
+              patch = fetchurl {
+                url = "https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4/0002-UBUNTU-SAUCE-add-vmlinux.strip-to-BOOT_TARGETS1-on-p.patch";
+                sha256 = "f8000310f146f248e700c84824333c92d31d86355528b2316c1b425e5686d332";
+              };
+            }
+            { name = "0003";
+              patch = fetchurl {
+                url = "https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4/0003-UBUNTU-SAUCE-tools-hv-lsvmbus-add-manual-page.patch";
+                sha256 = "0bfce06e23e3f370b7067f78a1bf7de217f77c7e0ee895be3dc0e0c84cc454ce";
+              };
+            }
+            { name = "0004";
+              patch = fetchurl {
+                url = "https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4/0004-debian-changelog.patch";
+                sha256 = "becbf6460600c97e9a53930b52a61b6ced3c792b4fafcc4d6d9b5e3e49017142";
+              };
+            }
+            { name = "0005";
+              patch = fetchurl {
+                url = "https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4/0005-configs-based-on-Ubuntu-5.4.0-7.8.patch";
+                sha256 = "822221f5ac175fc9d5dc6ce76071943a3e40c61fd578b9dc6a52684cabf62f75";
+               };
+             }
+          ];
 
-          extraConfig = ''
-            TYPEC m
-            TYPEC_DP_ALTMODE m
-	    TYPEC_TCPM m
-          '';
+          #extraConfig = ''
+          #  TYPEC m
+          #  TYPEC_DP_ALTMODE m
+          #  TYPEC_TCPM m
+          #'';
 
-          extraMeta.branch = "5.2";
+          extraMeta.branch = "5.4.6";
         } // (args.argsOverride or {}));
       linux_sgx = pkgs.callPackage linux_sgx_pkg{};
     in 
       pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_sgx);
 
-  boot.kernelModules = [ "typec" "typec_displayport" "typec_tcpm"];
+ # boot.kernelModules = [ "typec" "typec_displayport" "typec_tcpm"];
 
   networking.hostName = "nmio-bolt";
   networking.networkmanager.enable = true;
@@ -125,7 +156,7 @@
   networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
   networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
