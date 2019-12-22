@@ -21,12 +21,12 @@
       linux_sgx_pkg = { fetchurl, buildLinux, ... } @ args:
 
         buildLinux (args // rec {
-          version = "5.4.6";
+          version = "5.5.0-rc2";
           modDirVersion = version;
 
           src = fetchurl {
-            url = "https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.6.tar.xz";
-            sha256 = "fda561bcdea397ddd59656319c53871002938b19b554f30efed90affa30989c8";
+            url = "https://git.kernel.org/torvalds/t/linux-5.5-rc2.tar.gz";
+            sha256 = "aca303b87c818cb41c2ddfd4c06d3fcaa85e935fbd61ea203232ccd2a81844bb";
           };
           kernelPatches = [
             { name = "0001";
@@ -67,7 +67,7 @@
           #  TYPEC_TCPM m
           #'';
 
-          extraMeta.branch = "5.4.6";
+          extraMeta.branch = "5.5.0-rc2";
         } // (args.argsOverride or {}));
       linux_sgx = pkgs.callPackage linux_sgx_pkg{};
     in 
@@ -105,7 +105,6 @@
     openvpn
 
     autorandr
-    # displaylink
 
     firefox
     chromium
