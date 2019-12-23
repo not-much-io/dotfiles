@@ -61,19 +61,11 @@
              }
           ];
 
-          #extraConfig = ''
-          #  TYPEC m
-          #  TYPEC_DP_ALTMODE m
-          #  TYPEC_TCPM m
-          #'';
-
           extraMeta.branch = "5.5.0-rc2";
         } // (args.argsOverride or {}));
       linux_sgx = pkgs.callPackage linux_sgx_pkg{};
     in 
       pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_sgx);
-
- # boot.kernelModules = [ "typec" "typec_displayport" "typec_tcpm"];
 
   networking.hostName = "nmio-bolt";
   networking.networkmanager.enable = true;
