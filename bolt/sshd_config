@@ -1,0 +1,44 @@
+UsePAM yes
+
+AddressFamily any
+Port 22
+
+
+
+
+XAuthLocation /nix/store/1n8cnbhqvi8ni2s3vm57pv8l78yrajfg-xauth-1.1/bin/xauth
+
+
+X11Forwarding no
+
+
+Subsystem sftp /nix/store/g4jpqmsrw22ksv4j664sdlpps1zkmqda-openssh-7.9p1/libexec/sftp-server
+
+
+PermitRootLogin prohibit-password
+GatewayPorts yes
+PasswordAuthentication yes
+ChallengeResponseAuthentication yes
+
+PrintMotd no # handled by pam_motd
+
+AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys2 /etc/ssh/authorized_keys.d/%u
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
+
+LogLevel VERBOSE
+
+UseDNS no
+
+MaxSessions 100
+
+AllowAgentForwarding yes
+GatewayPorts yes
+AllowTcpForwarding yes
+PermitTunnel yes

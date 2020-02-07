@@ -1,8 +1,8 @@
-#/ Edit this configuration file to define what should be installed on
+# Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -16,56 +16,8 @@
   boot.loader.grub.useOSProber = true;
   # Use the latest kernel for magic touchpad 2 driver support (required 4.20+)
   # TODO: When 4.20+ becomes mainline, use that
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = let
-      linux_sgx_pkg = { fetchurl, buildLinux, ... } @ args:
-
-        buildLinux (args // rec {
-          version = "5.5.0-rc2";
-          modDirVersion = version;
-
-          src = fetchurl {
-            url = "https://git.kernel.org/torvalds/t/linux-5.5-rc2.tar.gz";
-            sha256 = "aca303b87c818cb41c2ddfd4c06d3fcaa85e935fbd61ea203232ccd2a81844bb";
-          };
-          kernelPatches = [
-            { name = "0001";
-              patch = fetchurl {
-                url = "https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4/0001-base-packaging.patch";
-                sha256 = "12dbk6fsdjx0a7rp7yh6m5ah1pvsnf8n58fi0y2xxq2agg1a8k52";
-              };
-            }
-            { name = "0002";
-              patch = fetchurl {
-                url = "https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4/0002-UBUNTU-SAUCE-add-vmlinux.strip-to-BOOT_TARGETS1-on-p.patch";
-                sha256 = "f8000310f146f248e700c84824333c92d31d86355528b2316c1b425e5686d332";
-              };
-            }
-            { name = "0003";
-              patch = fetchurl {
-                url = "https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4/0003-UBUNTU-SAUCE-tools-hv-lsvmbus-add-manual-page.patch";
-                sha256 = "0bfce06e23e3f370b7067f78a1bf7de217f77c7e0ee895be3dc0e0c84cc454ce";
-              };
-            }
-            { name = "0004";
-              patch = fetchurl {
-                url = "https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4/0004-debian-changelog.patch";
-                sha256 = "becbf6460600c97e9a53930b52a61b6ced3c792b4fafcc4d6d9b5e3e49017142";
-              };
-            }
-            { name = "0005";
-              patch = fetchurl {
-                url = "https://kernel.ubuntu.com/~kernel-ppa/mainline/v5.4/0005-configs-based-on-Ubuntu-5.4.0-7.8.patch";
-                sha256 = "822221f5ac175fc9d5dc6ce76071943a3e40c61fd578b9dc6a52684cabf62f75";
-               };
-             }
-          ];
-
-          extraMeta.branch = "5.5.0-rc2";
-        } // (args.argsOverride or {}));
-      linux_sgx = pkgs.callPackage linux_sgx_pkg{};
-    in 
-      pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_sgx);
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  environment.etc."ssh/sshd_config".source = lib.mkForce ./sshd_config;
 
   networking.hostName = "nmio-bolt";
   networking.networkmanager.enable = true;
@@ -90,11 +42,13 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    nix-index
     barrier
     spectacle
     okular
     filelight
     openvpn
+    ark
 
     autorandr
 
@@ -109,6 +63,7 @@
     gcc
     git
     htop
+    nmon
     bash
     docker
     docker-compose
@@ -125,9 +80,16 @@
     python
 
     emacs26-nox
+    # Pretty old, overriding with nix-env on unstable channel
     jetbrains.jdk
-    jetbrains.goland
     jetbrains.clion
+
+    # Too old, vendored
+    # jetbrains.goland
+    # Too old, vendored
+    # terraform
+    # Too old, vendored
+    # terragrunt
   ];
 
   virtualisation.docker.enable = true;
@@ -144,10 +106,12 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-  networking.firewall.allowedTCPPortRanges = [ { from = 1714; to = 1764; } ];
-  networking.firewall.allowedUDPPortRanges = [ { from = 1714; to = 1764; } ];
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [
+      24800 # Barrier
+      2376  # Docker Host
+  ];
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
