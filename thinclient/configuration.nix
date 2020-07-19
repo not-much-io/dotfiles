@@ -4,7 +4,9 @@
 
 { config, pkgs, ... }:
 
-{
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -51,6 +53,7 @@
     ark
     barrier
     chromium
+    unstable.vscode
     emacs26-nox
     firefox
     kdeconnect
