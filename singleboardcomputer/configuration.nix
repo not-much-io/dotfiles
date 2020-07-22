@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
@@ -12,7 +12,7 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "nmio-tc"; # thin client
+  networking.hostName = "nmio-tc2";
   networking.networkmanager.enable = true;
 
   hardware.pulseaudio.enable = true;
@@ -66,8 +66,15 @@ in {
 
     # TODO: Split into Go dev env
     go
-    jetbrains.jdk
-    jetbrains.goland
+    unstable.jetbrains.jdk
+    unstable.jetbrains.goland
+
+    # Too old, vendored
+    # jetbrains.goland
+    # Too old, vendored
+    # terraform
+    # Too old, vendored
+    # terragrunt
   ];
 
   virtualisation.docker.enable = true;
@@ -88,6 +95,16 @@ in {
   services.xserver.libinput.enable = true;
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
+  services.xserver.videoDrivers = [
+    "amdgpu"
+  ];
+ 
+  # Or disable the firewall altogether.
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [
+      24800 # Barrier
+      2376  # Docker Host
+  ];
 
   # NOTE: dockerdev group is a dummy group for working with docker volumes
   #       Both docker and host user (nmio) will have a group with guid "1024" and thus can share the data there
@@ -102,7 +119,6 @@ in {
   { isNormalUser = true;
     home = "/home/nmio";
     extraGroups = [ "wheel" "networkmanager" "docker" "dockerdev" "adbuser" ];
-    shell = pkgs.bash;
   };
 
   # These are the commands to change channel:
