@@ -46,7 +46,9 @@ in {
     gnumake
     htop
     lazydocker
+    libsForQt5.qtstyleplugin-kvantum
     openssl
+    plasma5.sddm-kcm
     python37
 
     # Applications
