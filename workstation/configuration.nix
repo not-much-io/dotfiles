@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 
-{
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in {
   imports =
     [
       ./hardware-configuration.nix
@@ -45,13 +47,16 @@
     gnumake
     htop
     lazydocker
+    libsForQt5.qtstyleplugin-kvantum
     openssl
+    plasma5.sddm-kcm
     python37
 
     # Applications
     ark
     barrier
     chromium
+    unstable.vscode
     emacs26-nox
     firefox
     kdeconnect
@@ -74,9 +79,12 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.bash.enableCompletion = true;
+  programs.ssh.forwardX11 = true;
+  programs.ssh.setXAuthLocation = true;
 
   # List services that you want to enable:
   services.openssh.enable = true;
+  services.openssh.forwardX11 = true;
   services.xserver.enable = true;
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "eurosign:e";
